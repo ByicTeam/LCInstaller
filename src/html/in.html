@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LiteCord Installer</title>
+    <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+  />
+  <script type="text/javascript" src="https://unpkg.com/jquery@3.3.1/dist/jquery.js"></script>
+ <script type="text/javascript" src="https://unpkg.com/web3@0.20.5/dist/web3.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism.min.css">
+</head>
+<div class="title-bar">
+    <div class="title">LiteCord Installer</div>
+    <div class="title-buttons">
+      <!-- <div class="button minimize"></div> -->
+      <!-- <div class="button maximize"></div> -->
+      <!-- <div class="button close"></div> -->
+    </div>
+  </div>
+<style>
+    body {
+        margin-top: 0;
+        margin-left: 0;
+        margin-right: 0;
+        background-image: url("../assets/image.webp");
+    }
+    * {
+        user-select: none;
+    }
+    .title-bar {
+  background-color: #202020;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 12px;
+  -webkit-app-region: drag; 
+}
+
+.title {
+    font-family: monospace;
+  font-size: 18px;
+}
+
+.title-buttons {
+  display: flex;
+  gap: 6px;
+}
+
+.button {
+  width: 19px;
+  height: 19px;
+  /* border-radius: 50%; */
+}
+
+
+.minimize:hover {
+  background-color: #a5a5a5;
+}
+
+.maximize {
+  background-color: #27ae60;
+}
+
+.close {
+  background-color: #e74c3c;
+}
+
+</style>
+
+<!-- CSS -->
+<style>
+    .container {
+      position: relative; /* Create a positioning context for absolute positioning */
+    }
+    .container11 {
+      position: relative; /* Create a positioning context for absolute positioning */
+      left: -3px;
+    }
+
+    .box {
+        position: relative;
+        margin-top: 50px;
+        right: -150px;
+        background-color: #202020;
+        width: 580px;
+        height: 375px;
+        border-radius: 20px;
+    }
+    button {
+        margin-top: 20px;
+        margin-left: 238px;
+        font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  color: white;
+  background-color: #171717;
+  padding: 1em 2em;
+  border: none;
+  border-radius: .6rem;
+  position: relative;
+  cursor: pointer;
+  overflow: hidden;
+    }
+    button span:not(:nth-child(6)) {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  height: 30px;
+  width: 30px;
+  background-color: #0c66ed;
+  border-radius: 50%;
+  transition: .6s ease;
+}
+
+button span:nth-child(6) {
+  position: relative;
+}
+
+button span:nth-child(1) {
+  transform: translate(-3.3em, -4em);
+}
+
+button span:nth-child(2) {
+  transform: translate(-6em, 1.3em);
+}
+
+button span:nth-child(3) {
+  transform: translate(-.2em, 1.8em);
+}
+
+button span:nth-child(4) {
+  transform: translate(3.5em, 1.4em);
+}
+
+button span:nth-child(5) {
+  transform: translate(3.5em, -3.8em);
+}
+
+button:hover span:not(:nth-child(6)) {
+  transform: translate(-50%, -50%) scale(4);
+  transition: 1.5s ease;
+}
+   .option1 {
+        position: relative;
+        display: flex;
+        margin-top: 15px;
+        background-color: #131313;
+        width: 563px;
+        height: 92px;
+        right: -8px;
+        top: 10px;
+        border-radius: 20px;
+        transition: box-shadow 0.3s;
+    }
+    .option1:hover {
+        box-shadow: 0 0 5px 5px rgba(1, 104, 172, 0.788), 0 0 5px 5px rgba(1, 104, 172, 0.788);
+        border: 2px solid rgba(1, 104, 172, 0.788);
+    }
+    .option1 > input {
+        margin-top: 5px;
+    }
+    .option1 > h1 {
+        font-family: Arial, Helvetica, sans-serif;
+        color: white;
+        margin-top: 30px;
+        margin-right: 50px;
+    }
+    .option2 {
+        position: relative;
+        display: flex;
+        margin-top: 15px;
+        background-color: #131313;
+        width: 563px;
+        height: 92px;
+        right: -8px;
+        top: 10px;
+        border-radius: 20px;
+        transition: box-shadow 0.3s;
+    }
+    .option2:hover {
+        box-shadow: 0 0 5px 5px rgba(1, 104, 172, 0.788), 0 0 5px 5px rgba(1, 104, 172, 0.788);
+        border: 2px solid rgba(1, 104, 172, 0.788);
+    }
+    .option2 > input {
+        margin-top: 5px;
+    }
+    .option2 > h1 {
+        font-family: Arial, Helvetica, sans-serif;
+        color: white;
+        margin-top: 30px;
+        margin-right: 50px;
+    }
+
+    .checkmark {
+  position: relative;
+  top: 0;
+  left: 0;
+  height: 1.3em;
+  width: 1.3em;
+  transition: .3s;
+  transform: scale(0);
+  border-radius: 50%;
+  background-color: white;
+
+}
+
+/* When the checkbox is checked, add a blue background */
+.container1 input:checked ~ .checkmark {
+  background-color: #20c580;
+  transform: scale(1);
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+  
+}
+
+/* Show the checkmark when checked */
+.container1 input:checked ~ .checkmark:after {
+  display: block;
+}
+
+.container1 input:checked ~ .celebrate {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+.container1 .checkmark:after {
+  left: 0.45em;
+  top: 0.25em;
+  width: 0.30em;
+  height: 0.5em;
+  border: solid white;
+  border-width: 0 0.15em 0.15em 0;
+  transform: rotate(45deg);
+  
+}
+
+.container1 .celebrate {
+  position: absolute;
+  transform-origin: center;
+  animation: kfr-celebrate .4s;
+  animation-fill-mode: forwards;
+  display: none;
+  stroke: #20c580;
+}
+
+/* When the checkbox is checked, add a blue background */
+.container input:checked ~ .checkmark {
+  background-color: #20c580;
+  transform: scale(1);
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+  
+}
+
+/* Show the checkmark when checked */
+.container input:checked ~ .checkmark:after {
+  display: block;
+}
+
+.container input:checked ~ .celebrate {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+.container .checkmark:after {
+  left: 0.45em;
+  top: 0.25em;
+  width: 0.30em;
+  height: 0.5em;
+  border: solid white;
+  border-width: 0 0.15em 0.15em 0;
+  transform: rotate(45deg);
+  
+}
+
+.container .celebrate {
+  position: absolute;
+  transform-origin: center;
+  animation: kfr-celebrate .4s;
+  animation-fill-mode: forwards;
+  display: none;
+  stroke: #20c580;
+}
+
+@keyframes kfr-celebrate {
+  0% {
+    transform: scale(0);
+  }
+
+  50% {
+    opacity: 1;
+  }
+
+  100% {
+    transform: scale(1.2);
+    opacity: 0;
+    display: none;
+  }
+}
+
+.container1 input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.container1 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  cursor: pointer;
+  font-size: 20px;
+  user-select: none;
+  border-radius: 50%;
+}
+</style>
+
+<!-- page2 -->
+<style>
+    html {
+        overflow-y: hidden; /* Hide vertical scrollbar */
+  overflow-x: hidden;
+    }
+</style>
+<body>
+        <div class="container">
+        <div class="box animate__animated animate__bounceInUp animate__repeat-1" id="page1">
+            <div class="option1 animate__animated animate__bounceInDown animate__repeat-1" onclick="op1()">&nbsp;&nbsp;
+                <label class="container1">
+                    <input type="checkbox" checked="true" value="yes" id="bt1">
+                    <div class="checkmark"></div>
+                    <svg width="50" height="50" xmlns="http://www.w3.org/2000/svg" class="celebrate">
+                        <polygon points="0,0 10,10"></polygon>
+                        <polygon points="0,25 10,25"></polygon>
+                        <polygon points="0,50 10,40"></polygon>
+                        <polygon points="50,0 40,10"></polygon>
+                        <polygon points="50,25 40,25"></polygon>
+                        <polygon points="50,50 40,40"></polygon>
+                      </svg>
+                  </label>
+                <h1>&nbsp;Stable</h1>                    
+            </div>
+            <div class="option2 animate__animated animate__bounceInDown animate__repeat-1" onclick="op2()">&nbsp;&nbsp;
+                <label class="container1">
+                    <input type="checkbox" id="bt2">
+                    <div class="checkmark"></div>
+                    <svg width="50" height="50" xmlns="http://www.w3.org/2000/svg" class="celebrate">
+                        <polygon points="0,0 10,10"></polygon>
+                        <polygon points="0,25 10,25"></polygon>
+                        <polygon points="0,50 10,40"></polygon>
+                        <polygon points="50,0 40,10"></polygon>
+                        <polygon points="50,25 40,25"></polygon>
+                        <polygon points="50,50 40,40"></polygon>
+                      </svg>
+                  </label><h1>&nbsp;PTB</h1>                    
+            </div>
+            <div class="option1 animate__animated animate__bounceInDown animate__repeat-1" onclick="op3()">&nbsp;&nbsp;
+                <label class="container1">
+                    <input type="checkbox" value="yes" id="bt3">
+                    <div class="checkmark"></div>
+                    <svg width="50" height="50" xmlns="http://www.w3.org/2000/svg" class="celebrate">
+                        <polygon points="0,0 10,10"></polygon>
+                        <polygon points="0,25 10,25"></polygon>
+                        <polygon points="0,50 10,40"></polygon>
+                        <polygon points="50,0 40,10"></polygon>
+                        <polygon points="50,25 40,25"></polygon>
+                        <polygon points="50,50 40,40"></polygon>
+                      </svg>
+                  </label><h1>&nbsp;Canary</h1>                    
+            </div>
+            <button onclick="NT()">
+                <span class="circle1"></span>
+                <span class="circle2"></span>
+                <span class="circle3"></span>
+                <span class="circle4"></span>
+                <span class="circle5"></span>
+                <span class="text">Submit</span>
+            </button>
+        </div>
+    </div>
+    <div class="waitingRequest">
+    <div class="container11">
+        <div class="box" id="page2">
+            <div class="uwu-keepThisSecrectPls" onclick="op1()">&nbsp;&nbsp;
+              <div class="checkbox-wrapper-31">
+                <input id="ckForClient" onclick="return false" type="checkbox">
+                <svg viewBox="0 0 35.6 35.6">
+                  <circle class="background" cx="17.8" cy="17.8" r="17.8"></circle>
+                  <circle class="stroke" cx="17.8" cy="17.8" r="14.37"></circle>
+                  <polyline class="check" points="11.78 18.12 15.55 22.23 25.17 12.87"></polyline>
+                </svg>
+              </div>
+                <h1 id="FirstStage">&nbsp;&nbsp;Checking For N/N</h1>                    
+            </div>
+            <div class="uwu2" onclick="op1()">&nbsp;&nbsp;
+              <div class="checkbox-wrapper-31">
+                <input id="ckForClient1" onclick="return false" type="checkbox">
+                <svg viewBox="0 0 35.6 35.6">
+                  <circle class="background" cx="17.8" cy="17.8" r="17.8"></circle>
+                  <circle class="stroke" cx="17.8" cy="17.8" r="14.37"></circle>
+                  <polyline class="check" points="11.78 18.12 15.55 22.23 25.17 12.87"></polyline>
+                </svg>
+              </div>
+                <h1 id="FirstStage1">&nbsp;&nbsp;Downloading app.asar</h1>                    
+            </div>
+            <div class="uwu3" onclick="op1()">&nbsp;&nbsp;
+              <div class="checkbox-wrapper-31">
+                <input id="ckForClient2" onclick="return false" type="checkbox">
+                <svg viewBox="0 0 35.6 35.6">
+                  <circle class="background" cx="17.8" cy="17.8" r="17.8"></circle>
+                  <circle class="stroke" cx="17.8" cy="17.8" r="14.37"></circle>
+                  <polyline class="check" points="11.78 18.12 15.55 22.23 25.17 12.87"></polyline>
+                </svg>
+              </div>
+                <h1 id="FirstStage2">&nbsp;&nbsp;Moving app.asar</h1>                    
+            </div>
+        </div>
+</div>
+</div>
+    <script>
+
+        function op1() {
+            if (document.getElementById("bt1").checked == true) {
+                document.getElementById("bt1").checked = false;
+                document.getElementById("bt2").checked = false;
+                document.getElementById("bt3").checked = false;
+            } else if (document.getElementById("bt1").checked == false) {
+                document.getElementById("bt1").checked = true;
+                document.getElementById("bt2").checked = false;
+                document.getElementById("bt3").checked = false;
+            }
+        }
+        function op2() {
+            if (document.getElementById("bt2").checked == true) {
+                document.getElementById("bt2").checked = false;
+                document.getElementById("bt1").checked = false;
+                document.getElementById("bt3").checked = false;
+            } else if (document.getElementById("bt2").checked == false) {
+                document.getElementById("bt2").checked = true;
+                document.getElementById("bt1").checked = false;
+                document.getElementById("bt3").checked = false;
+            }
+        }
+
+        function op3() {
+            if (document.getElementById("bt3").checked == true) {
+                document.getElementById("bt3").checked = false;
+                document.getElementById("bt1").checked = false;
+                document.getElementById("bt2").checked = false;
+            } else if (document.getElementById("bt3").checked == false) {
+                document.getElementById("bt3").checked = true;
+                document.getElementById("bt2").checked = false;
+                document.getElementById("bt1").checked = false;
+            }
+        }
+
+
+        function NT() {
+            if (document.getElementById("bt1").checked == true) {
+                document.getElementsByClassName("container")[0].setAttribute("class","animate__animated animate__backOutLeft animate__repeat-1");
+                setTimeout(()=> {
+                    document.getElementsByClassName("animate__animated animate__backOutLeft animate__repeat-1")[0].remove();
+                    document.getElementsByClassName("uwu-keepThisSecrectPls")[0].setAttribute("class","option1 animate__animated animate__bounceInDown animate__repeat-1 animate-delay: 3.2s");
+                document.getElementsByClassName("waitingRequest")[0].setAttribute("class","animate__animated animate__backInRight animate__repeat-1");
+                }, 300);
+                setTimeout(() => {
+                    PAGE2();
+                }, 1000);
+                localStorage.clear();
+                localStorage.setItem("stable", "stable");
+            } else if(document.getElementById("bt2").checked == true) {
+              document.getElementsByClassName("container")[0].setAttribute("class","animate__animated animate__backOutLeft animate__repeat-1");
+                setTimeout(()=> {
+                    document.getElementsByClassName("animate__animated animate__backOutLeft animate__repeat-1")[0].remove();
+                    document.getElementsByClassName("uwu-keepThisSecrectPls")[0].setAttribute("class","option1 animate__animated animate__bounceInDown animate__repeat-1 animate-delay: 3.2s");
+                document.getElementsByClassName("waitingRequest")[0].setAttribute("class","animate__animated animate__backInRight animate__repeat-1");
+                }, 300);
+                setTimeout(() => {
+                    PAGE2();
+                }, 1000);
+                localStorage.clear();
+                localStorage.setItem("ptb", "ptb");
+            } else if(document.getElementById("bt3").checked == true) {
+              document.getElementsByClassName("container")[0].setAttribute("class","animate__animated animate__backOutLeft animate__repeat-1");
+                setTimeout(()=> {
+                    document.getElementsByClassName("animate__animated animate__backOutLeft animate__repeat-1")[0].remove();
+                    document.getElementsByClassName("uwu-keepThisSecrectPls")[0].setAttribute("class","option1 animate__animated animate__bounceInDown animate__repeat-1 animate-delay: 3.2s");
+                document.getElementsByClassName("waitingRequest")[0].setAttribute("class","animate__animated animate__backInRight animate__repeat-1");
+                }, 300);
+                setTimeout(() => {
+                    PAGE2();
+                }, 1000);
+                localStorage.clear();
+                localStorage.setItem("canary", "canary");
+            } else {
+                localStorage.clear();
+                alert("No active checkbox were detected!")
+            }
+        }
+
+        function getUsername() {
+    return (
+        process.env.SUDO_USER ||
+        process.env.C9_USER ||
+        process.env.LOGNAME ||
+        process.env.USER ||
+        process.env.LNAME ||
+        process.env.USERNAME
+    );
+}
+
+        async function PAGE2() {
+          if (localStorage.getItem("stable")=="stable") {
+            let version = localStorage.getItem("stable")
+            document.getElementById("FirstStage").innerHTML = `&nbsp;&nbsp;Checking for ${version}`;
+            var appV = "stable";
+          } else if (localStorage.getItem("ptb")=="ptb") {
+            let version = localStorage.getItem("ptb")
+            document.getElementById("FirstStage").innerHTML = `&nbsp;&nbsp;Checking for ${version}`;
+            var appV = "ptb";
+          } else if (localStorage.getItem("canary")=="canary") {
+            let version = localStorage.getItem("canary");
+            document.getElementById("FirstStage").innerHTML = `&nbsp;&nbsp;Checking for ${version}`;
+            var appV = "canary";
+          }
+                const fs = require("fs");
+                const __electron = require("electron");
+                const path = require("path");
+                setTimeout(async() => {
+                if (appV == "stable") {
+                     if (fs.existsSync(`C:\\Users\\${getUsername()}\\AppData\\Local\\Discord`) == true) {
+                      const basePath = path.join(`C:\\Users\\${getUsername()}\\AppData\\Local\\Discord`);
+
+const subDirectories = fs.readdirSync(basePath);
+
+for (const subDir of subDirectories) {
+  const subDirPath = path.join(basePath, subDir, 'resources');
+  if (fs.existsSync(subDirPath)) {
+    console.log(`'resources' directory found in: ${subDirPath}`);
+    document.getElementById("ckForClient").checked = true;
+    document.getElementById("FirstStage").innerHTML = `&nbsp;&nbsp;Stable Version Found.`;
+    NextT()
+  }
+}
+                     } else {
+                    document.getElementById("FirstStage").innerHTML = `Stable Version is not found.`;
+                     }
+                }
+                if (appV == "ptb") {
+                     if (fs.existsSync(`C:\\Users\\${getUsername()}\\AppData\\Local\\DiscordPTB`) == true) {
+                      const basePath = path.join(`C:\\Users\\${getUsername()}\\AppData\\Local\\DiscordPTB`);
+
+const subDirectories = fs.readdirSync(basePath);
+
+for (const subDir of subDirectories) {
+  const subDirPath = path.join(basePath, subDir, 'resources');
+  if (fs.existsSync(subDirPath)) {
+    console.log(`'resources' directory found in: ${subDirPath}`);
+    document.getElementById("ckForClient").checked = true;
+
+    NextT()
+  }
+}
+                     } else {
+                    document.getElementById("FirstStage").innerHTML = `PTB Version is not found.`;
+                     }
+                }
+                }, 1000);
+        }
+
+
+        /**
+ * Promise based download file method
+ */
+
+ var fs = require("fs");
+  
+
+function downloadFile(file_url , targetPath){
+    // Save variable to know progress
+    var received_bytes = 0;
+    var total_bytes = 0;
+
+    var req = request({
+        method: 'GET',
+        uri: file_url
+    });
+
+    var out = fs.createWriteStream(targetPath);
+    req.pipe(out);
+
+    req.on('response', function ( data ) {
+        // Change the total bytes value to get progress later.
+        total_bytes = parseInt(data.headers['content-length' ]);
+    });
+
+    req.on('data', function(chunk) {
+        // Update the received bytes
+        received_bytes += chunk.length;
+
+        showProgress(received_bytes, total_bytes);
+    });
+
+    req.on('end', function() {
+      alert("File succesfully downloaded");
+    document.getElementById("FirstStage1").innerHTML = `&nbsp;&nbsp;Downloaded app.asar`;
+   document.getElementById("ckForClient1").checked = true; 
+   Next3()
+    });
+}
+
+function showProgress(received,total){
+    var percentage = (received * 100) / total;
+    console.log(percentage + "% | " + received + " bytes out of " + total + " bytes.");
+}
+
+
+
+        var request = require('request');
+        var path1 = require('path');
+        function NextT() {
+          document.getElementsByClassName("uwu2")[0].setAttribute("class","option1 animate__animated animate__backInDown animate__repeat-1");
+        downloadFile("https://github.com/ByicTeam/LiteCord/releases/download/1.0.0/app.asar",  `C:\\Users\\${getUsername()}\\AppData\\Local\\Temp\\cord.txt`);
+  }
+  var __extra = require('original-fs');
+  var __exec = require("child_process").exec
+  var path = require("path");
+  var __app = require("electron").app;
+  function Next3() {
+    if (localStorage.getItem("stable")=="stable") {
+      let version = localStorage.getItem("stable")
+            var appV1 = "stable";
+          } else if (localStorage.getItem("ptb")=="ptb") {
+            let version = localStorage.getItem("ptb")
+            var appV1 = "ptb";
+          } else if (localStorage.getItem("canary")=="canary") {
+            let version = localStorage.getItem("canary");
+            var appV1 = "canary";
+          }
+
+    document.getElementsByClassName("uwu3")[0].setAttribute("class","option1 animate__animated animate__backInDown animate__repeat-1");
+    if (appV1 == "stable") {
+      if (fs.existsSync(`C:\\Users\\${getUsername()}\\AppData\\Local\\Discord`) == true) {
+        const basePath = path.join(`C:\\Users\\${getUsername()}\\AppData\\Local\\Discord`);
+        
+        const subDirectories = fs.readdirSync(basePath);
+        
+        for (const subDir of subDirectories) {
+          const subDirPath = path.join(basePath, subDir, 'resources');
+          if (fs.existsSync(subDirPath)) {
+            fs.unlink(`${subDirPath}\\app.asar`, (err) => {
+  if (err) {
+    console.error('Error deleting file:', err);
+  } else {
+    console.log('File deleted successfully.');
+    __extra.copyFile(`C:\\Users\\${getUsername()}\\AppData\\Local\\Temp\\cord.txt`, `C:\\Users\\${getUsername()}\\AppData\\Local\\Discord\\app-1.0.9016\\resources\\app.txt`, (err) => {
+      if (err) throw err;
+    console.log(`'resources' directory found in: ${subDirPath}`);
+    const command = `cd /d "${subDirPath}" && ren app.txt app.asar`
+  console.log('ASAR was copied to destination');
+  __exec(command, (error, stdout, stderr) => {
+  document.getElementById("ckForClient").checked = true;
+  
+  document.getElementById("FirstStage2").innerHTML = `&nbsp;&nbsp;Moved app.asar`;
+  document.getElementById("ckForClient2").checked = true
+  console.log(subDir);
+  __exec(`cd /d "C:\\Users\\${getUsername()}\\AppData\\Local\\Discord\\${subDir}" && start Discord.exe`, (error, stdout, stderr) => {
+  setTimeout(() => {
+    __app.exit();
+  }, 5000);
+    if (error) {
+    console.error(`Error opening Discord: ${error}`);
+  } else {
+    console.log(`Discord opened successfully`);
+  }
+});
+  if(error) {
+  
+      alert(error)
+  }
+  })
+  })
+  }
+});
+      }
+  }
+  
+}
+ 
+    }
+  }
+
+    </script>
+
+    <style>
+      .checkbox-wrapper-31:hover .check {
+  stroke-dashoffset: 0;
+}
+
+.checkbox-wrapper-31 {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+}
+
+.checkbox-wrapper-31 .background {
+  fill: #ccc;
+  transition: ease all 0.6s;
+  -webkit-transition: ease all 0.6s;
+}
+
+.checkbox-wrapper-31 .stroke {
+  fill: none;
+  stroke: #fff;
+  stroke-miterlimit: 10;
+  stroke-width: 2px;
+  stroke-dashoffset: 100;
+  stroke-dasharray: 100;
+  transition: ease all 0.6s;
+  -webkit-transition: ease all 0.6s;
+}
+
+.checkbox-wrapper-31 .check {
+  fill: none;
+  stroke: #fff;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 2px;
+  stroke-dashoffset: 22;
+  stroke-dasharray: 22;
+  transition: ease all 0.6s;
+  -webkit-transition: ease all 0.6s;
+}
+
+.checkbox-wrapper-31 input[type=checkbox] {
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  margin: 0 0 -18px;
+  opacity: 0;
+  -appearance: none;
+  -webkit-appearance: none;
+}
+
+.checkbox-wrapper-31 input[type=checkbox]:hover {
+  cursor: pointer;
+}
+
+.checkbox-wrapper-31 input[type=checkbox]:checked + svg .background {
+  fill: #6cbe45;
+}
+
+.checkbox-wrapper-31 input[type=checkbox]:checked + svg .stroke {
+  stroke-dashoffset: 0;
+}
+
+.checkbox-wrapper-31 input[type=checkbox]:checked + svg .check {
+  stroke-dashoffset: 0;
+}
+
+    </style>
+      
+</body>
+</html>

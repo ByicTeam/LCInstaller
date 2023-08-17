@@ -1,0 +1,4 @@
+()=> {
+
+    console.warn("Preload injected.")
+}
